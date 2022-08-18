@@ -2,6 +2,9 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
+using Shop.Data.Interfaces;
+using Shop.Data.mocks;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Shop
 {
@@ -9,14 +12,26 @@ namespace Shop
     {
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddTransient<IAllCars, MockCars>();
+            services.AddTransient<ICarsCategory, MockCategory>();
             services.AddMvc();
+
         }
         public void Configure(IApplicationBuilder app, Microsoft.AspNetCore.Hosting.IHostingEnvironment env)
         {
-            app.UseDeveloperExceptionPage();// To display page with errors
-            app.UseStatusCodePages();// To display code of page
-            app.UseStaticFiles();// To display static files
-            app.UseMvcWithDefaultRoute();// To use default URL address
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+
+            app.UseStaticFiles();
+            app.UseRouting();
+            app.UseCors();
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}");
+            });
 
         }
     }
