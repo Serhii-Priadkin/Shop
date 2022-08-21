@@ -30,7 +30,7 @@ namespace Shop.Data.mocks
                         longDesc = "A comfortable car for city life",
                         img = "/img/Ford Fiesta.jpg",
                         price = 11000,
-                        isFavorite = true,
+                        isFavorite = false,
                         available = true,
                         Category = _categoryCars.AllCategories.Last()
                     },
@@ -52,7 +52,7 @@ namespace Shop.Data.mocks
                         longDesc = "A comfortable car for city life",
                         img = "/img/Nissan Leaf.jpg",
                         price = 20000,
-                        isFavorite = true,
+                        isFavorite = false,
                         available = true,
                         Category = _categoryCars.AllCategories.First()
                     }
