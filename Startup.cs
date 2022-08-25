@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
 using Shop.Data.Repository;
 using Shop.Data.Models;
+using System.Reflection;
 
 namespace Shop
 {
@@ -27,11 +28,12 @@ namespace Shop
             services.AddDbContext<AppDBContent>(options => options.UseSqlServer(_confString.GetConnectionString("DefaultConnection")));
             services.AddTransient<IAllCars, CarRepository>();
             services.AddTransient<ICarsCategory, CategoryRepository>();
+            services.AddTransient<IAllOreders, OrdersRepository>();
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped(sp => ShopCart.GetCart(sp));
 
-            services.AddMvc();
+            services.AddMvc(options => options.EnableEndpointRouting = false);
 
             services.AddMemoryCache();
             services.AddSession();
@@ -43,11 +45,18 @@ namespace Shop
                 app.UseDeveloperExceptionPage();
             }
 
-            
+            app.UseStatusCodePages();
             app.UseStaticFiles();
             app.UseSession();
             app.UseRouting();
             app.UseCors();
+            //app.UseMvcWithDefaultRoute();
+
+            app.UseMvc(routes => 
+                {
+                    routes.MapRoute(name: "default", template: "{controller=Home}/{action=Index}/{id?}");
+                    routes.MapRoute(name: "categoryFilter", template: "Car/{action}/{category?}", defaults: new { Controller = "Car", action="List"});
+                });
 
             app.UseEndpoints(endpoints =>
             {

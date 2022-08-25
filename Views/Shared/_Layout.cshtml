@@ -16,10 +16,16 @@
       <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <a class="nav-link " href="#">Main</a>
+            <a class="nav-link " asp-controller ="Home" asp-action="Index">Main</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">About us</a>
+            <a class="nav-link" href="Cars/List">Cars</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="Cars/List/Electro">Electro</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="Cars/List/Fuel">Fuel</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/ShopCart/">Shopping Cart</a>
@@ -38,7 +44,7 @@
         @RenderBody()
     </div>
     <footer class="container">
-    <p class="float-end"><a href="#">Back to top</a></p>
+    <p class="float-end"><a href="Cars/List">Back to top</a></p>
     <p>© 2022 All rights reserved. · <a href="#">Agreement</a>
   </footer>
     <script src="~/js/bootstrap.min.js"></script>
